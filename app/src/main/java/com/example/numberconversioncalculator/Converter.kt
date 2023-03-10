@@ -4,6 +4,9 @@ package com.example.numberconversioncalculator
 class Converter() {
 
     fun getNumber(from: Type, to: Type, number: String): String {
+        if (number.isEmpty() || !number.matches("[0-9A-Fa-f]+".toRegex())){
+            return ";)"
+        }
         val x: String = when (from) {
             Type.DEC -> Dec(to, number.toInt())
             Type.BIN -> Bin(to, number)
@@ -23,14 +26,19 @@ class Converter() {
     }
 
     fun Oct(to: Type, octNumber: String): String {
-        val dec = Integer.parseInt(octNumber, 8)
+        if (octNumber.matches("[0-7]+".toRegex())) {
+            val dec = Integer.parseInt(octNumber, 8)
 
-        return when (to) {
-            Type.DEC -> dec.toString()
-            Type.BIN -> Integer.toBinaryString(dec)
-            Type.HEX -> Integer.toHexString(dec)
-            else -> { octNumber}
+            return when (to) {
+                Type.DEC -> dec.toString()
+                Type.BIN -> Integer.toBinaryString(dec)
+                Type.HEX -> Integer.toHexString(dec)
+                else -> {
+                    octNumber
+                }
+            }
         }
+        return ";)"
     }
 
     fun Hex(to: Type, hexNumber: String): String {
