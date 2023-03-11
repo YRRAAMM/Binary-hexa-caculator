@@ -1,12 +1,11 @@
 package com.example.numberconversioncalculator
 
-import android.annotation.SuppressLint
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +15,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editTextOct: EditText
     private lateinit var outputeditTV: List<EditText>
 
-    @SuppressLint("MissingInflatedId", "CutPasteId")
+    private var ignoreChanges = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,52 +27,51 @@ class MainActivity : AppCompatActivity() {
         editTextOct = findViewById(R.id.editTextOct)
 
         outputeditTV = listOf(
-            findViewById(R.id.editTextHex),
-            findViewById(R.id.editTextBin),
-            findViewById(R.id.editTextDec),
-            findViewById(R.id.editTextOct)
+            editTextHex,
+            editTextBin,
+            editTextDec,
+            editTextOct
         )
 
-        on_change(editTextHex, outputeditTV, Type.HEX)
-        on_change(editTextBin, outputeditTV, Type.BIN)
-        on_change(editTextDec, outputeditTV, Type.DEC)
-        on_change(editTextOct, outputeditTV, Type.OCT)
-
-
+        setupTextWatchers()
     }
 
-    fun on_change(editText: EditText, outputText: List<EditText>, type: Type) {
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+    private fun setupTextWatchers() {
+        for (i in outputeditTV.indices) {
+            val editText = outputeditTV[i]
+            val type = Type.values()[i]
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            editText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun afterTextChanged(s: Editable?) {
-                val input = s.toString()
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
-                val converter = Converter()
-                val decOutput = converter.getNumber(type, Type.DEC, input)
-                outputText[0].setText(decOutput)
+                override fun afterTextChanged(s: Editable?) {
+                    if (ignoreChanges) return
 
-                val binOutput = converter.getNumber(type, Type.BIN, input)
-                outputText[1].setText(binOutput)
+                    val input = s.toString()
+                    val converter = Converter()
 
-                val hexOutput = converter.getNumber(type, Type.HEX, input)
-                outputText[2].setText(hexOutput)
+                    ignoreChanges = true
 
-                val octOutput = converter.getNumber(type, Type.OCT, input)
-                outputText[3].setText(octOutput)
-            }
-        })
-    }
+                    for (j in outputeditTV.indices) {
+                        if (i == j) continue
 
-    private fun getInputType(input: String): Type {
-        return when {
-            input.matches("[01]+".toRegex()) -> Type.BIN
-            input.matches("[0-7]+".toRegex()) -> Type.OCT
-//            input.matches("[0-9]+".toRegex()) -> Type.DEC
-            input.matches("[0-9A-Fa-f]+".toRegex()) -> Type.HEX
-            else -> Type.DEC
+                        val outputEditText = outputeditTV[j]
+                        val outputType = Type.values()[j]
+
+                        try {
+                            val output = converter.getNumber(type, outputType, input)
+                            outputEditText.setText(output)
+                            outputEditText.error = null
+                        } catch (e: IllegalArgumentException) {
+                            outputEditText.error = e.message
+                        }
+                    }
+
+                    ignoreChanges = false
+                }
+            })
         }
     }
 }

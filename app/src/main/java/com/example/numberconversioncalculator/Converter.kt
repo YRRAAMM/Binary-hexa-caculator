@@ -4,9 +4,21 @@ package com.example.numberconversioncalculator
 class Converter() {
 
     fun getNumber(from: Type, to: Type, number: String): String {
-        if (number.isEmpty() || !number.matches("[0-9A-Fa-f]+".toRegex())){
-            return ";)"
+        if (number.isEmpty()) {
+            return ""
         }
+
+        val regex = when (from) {
+            Type.BIN -> "[01]+".toRegex()
+            Type.OCT -> "[0-7]+".toRegex()
+            Type.HEX -> "[0-9A-Fa-f]+".toRegex()
+            else -> "\\d+".toRegex()
+        }
+
+        if (!number.matches(regex)) {
+            throw IllegalArgumentException("Invalid input")
+        }
+
         val x: String = when (from) {
             Type.DEC -> Dec(to, number.toInt())
             Type.BIN -> Bin(to, number)
@@ -38,28 +50,34 @@ class Converter() {
                 }
             }
         }
-        return ";)"
+        return ""
     }
 
     fun Hex(to: Type, hexNumber: String): String {
-        val dec = Integer.parseInt(hexNumber, 16)
+        if (hexNumber.matches("[0-9A-Fa-f]+".toRegex())) {
+            val dec = Integer.parseInt(hexNumber, 16)
 
-        return when (to) {
-            Type.DEC -> dec.toString()
-            Type.BIN -> Integer.toBinaryString(dec)
-            Type.OCT -> Integer.toOctalString(dec)
-            else -> { hexNumber}
+            return when (to) {
+                Type.DEC -> dec.toString()
+                Type.BIN -> Integer.toBinaryString(dec)
+                Type.OCT -> Integer.toOctalString(dec)
+                else -> { hexNumber}
+            }
         }
+       return ""
     }
 
     fun Bin(to: Type, binNumber: String): String {
-        val dec = Integer.parseInt(binNumber, 2)
+        if ( binNumber.matches("[01]+".toRegex())) {
+            val dec = Integer.parseInt(binNumber, 2)
 
-        return when (to) {
-            Type.DEC -> dec.toString()
-            Type.HEX -> Integer.toHexString(dec)
-            Type.OCT -> Integer.toOctalString(dec)
-            else -> { binNumber }
+            return when (to) {
+                Type.DEC -> dec.toString()
+                Type.HEX -> Integer.toHexString(dec)
+                Type.OCT -> Integer.toOctalString(dec)
+                else -> { binNumber }
+            }
         }
+        return ""
     }
 }
