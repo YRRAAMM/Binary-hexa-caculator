@@ -49,23 +49,43 @@ class MainActivity : AppCompatActivity() {
                 override fun afterTextChanged(s: Editable?) {
                     if (ignoreChanges) return
 
+
                     val input = s.toString()
+
                     val converter = Converter()
+                    var isError = false // track if input is invalid
 
                     ignoreChanges = true
 
-                    for (j in outputeditTV.indices) {
-                        if (i == j) continue
+                    // Check if input is valid
+                    when (type) {
+                        Type.BIN -> isError = !input.matches("[01]+".toRegex())
+                        Type.OCT -> isError = !input.matches("[0-7]+".toRegex())
+                        Type.HEX -> isError = !input.matches("[0-9A-Fa-f]+".toRegex())
+                        Type.DEC -> isError = input.isEmpty()
+                    }
 
-                        val outputEditText = outputeditTV[j]
-                        val outputType = Type.values()[j]
+                    // If input is invalid, show error message and don't update other fields
+                    if (isError) {
+                        if (input.isEmpty()) { // Reset all fields if input is empty
+                            for (j in outputeditTV.indices) {
+                                val outputEditText = outputeditTV[j]
+                                outputEditText.setText("")
+                                outputEditText.error = null
+                            }
+                        } else { // Show error message and don't update other fields
+                            editText.error = "Invalid input"
+                        }
+                    } else {
+                        // Update other fields
+                        for (j in outputeditTV.indices) {
+                            if (i == j) continue
 
-                        try {
+                            val outputEditText = outputeditTV[j]
+                            val outputType = Type.values()[j]
                             val output = converter.getNumber(type, outputType, input)
                             outputEditText.setText(output)
-                            outputEditText.error = null
-                        } catch (e: IllegalArgumentException) {
-                            outputEditText.error = e.message
+                            outputEditText.error = null // remove error message from other fields
                         }
                     }
 
@@ -74,4 +94,5 @@ class MainActivity : AppCompatActivity() {
             })
         }
     }
+
 }
