@@ -16,15 +16,14 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/hexInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/hexadecimal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextHex"
@@ -41,20 +40,20 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/binInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/binary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/hexInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextBin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/dm_sans"
             android:inputType="number"
             android:maxLength="32"
             android:textSize="18sp" />
@@ -65,14 +64,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/decInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/decimal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/binInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -89,14 +87,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/octInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/octal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/decInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -111,36 +108,111 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/clear_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="68dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="#990E5085"
         android:fontFamily="@font/dm_sans"
         android:text="@string/clear"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/octInputLayout" />
 
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="0dp"
+        android:layout_width="249dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="84dp"
         android:fontFamily="@font/glitch_city"
         android:padding="12dp"
-        android:text="BINARY CONVERTER"
+        android:text="NUMBER CONVERTER"
         android:textColor="@color/black"
-        android:textSize="34sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="60dp"
+        android:fontFamily="@font/dm_sans"
+        android:text="This calculator automatically calculates the hexa, octa, binary, and decimal values of the entered number."
+        android:textAlignment="center"
+        android:textColor="#99000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/glitch_city"
+        android:text="H"
+        android:textColor="#2195F1"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hexInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/hexInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hexInputLayout" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/glitch_city"
+        android:text="B"
+        android:textColor="#2196F3"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/binInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/binInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/binInputLayout" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/glitch_city"
+        android:text="D"
+        android:textColor="#2196F3"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/decInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/decInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/decInputLayout" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/glitch_city"
+        android:text="O"
+        android:textColor="#2196F3"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/octInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/octInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/octInputLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

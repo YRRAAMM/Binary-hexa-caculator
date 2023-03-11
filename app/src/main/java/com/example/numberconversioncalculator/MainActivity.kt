@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Button
 import android.widget.EditText
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var editTextHex: EditText
     private lateinit var editTextOct: EditText
     private lateinit var outputeditTV: List<EditText>
+
+    private lateinit var clearBtn: Button
 
     private var ignoreChanges = false
 
@@ -34,6 +37,17 @@ class MainActivity : AppCompatActivity() {
         )
 
         setupTextWatchers()
+
+        clearBtn = findViewById(R.id.clear_btn)
+
+        clearBtn.setOnClickListener {
+            for (j in outputeditTV.indices) {
+                val outputEditText = outputeditTV[j]
+                outputEditText.setText("")
+                outputEditText.error = null
+            }
+        }
+
     }
 
     private fun setupTextWatchers() {
