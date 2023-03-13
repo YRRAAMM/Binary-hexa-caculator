@@ -35,6 +35,7 @@
             android:drawableTint="@color/blue"
             android:fontFamily="@font/dm_sans"
             android:inputType="textCapCharacters"
+            android:digits="0123456789ABCDEFabcdef"
             android:maxLength="8"
             android:textSize="18sp" />
 
@@ -64,6 +65,7 @@
             android:fontFamily="@font/dm_sans"
             android:inputType="number"
             android:maxLength="32"
+            android:digits="01"
             android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -91,6 +93,7 @@
             android:drawableTint="#2196F3"
             android:fontFamily="@font/dm_sans"
             android:inputType="numberSigned"
+            android:digits="0123456789"
             android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -118,6 +121,7 @@
             android:drawableTint="#2196F3"
             android:fontFamily="@font/dm_sans"
             android:inputType="numberSigned"
+            android:digits="01234567"
             android:maxLength="11"
             android:textSize="18sp" />
 
