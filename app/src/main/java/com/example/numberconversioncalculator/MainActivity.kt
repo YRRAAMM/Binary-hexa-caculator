@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                             val outputType = Type.values()[j]
                             val output = converter.getNumber(type, outputType, input)
                             outputEditText.setText(output)
-                            outputEditText.error = null // remove error message from other fields
+                            outputEditText.error = null
                         }
                     }
 
